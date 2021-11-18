@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class CameraMoving : MonoBehaviour
 {
+    // 테스트 주석
     [SerializeField]
     GameObject m_TargetObj;  // 카메라 타겟 오브젝트
     [SerializeField]
