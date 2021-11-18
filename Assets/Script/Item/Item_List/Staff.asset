@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6cf7937009e53cf46ab61a30ec73c311, type: 3}
+  m_Name: Staff
+  m_EditorClassIdentifier: 
+  m_Equipment_Name: Staff
+  m_Equipment_Comment: "\uB9C8\uBC95\uC2A4\uD0DC\uD504"
+  m_Equipment_Type: 0
+  m_Equipment_Image: {fileID: 21300000, guid: c0280fafa88fc374899c40a7f7982b39, type: 3}
+  m_Equipment_Prefab: {fileID: 2580645166169784016, guid: b1364b20999c4ac47af0b333d6a3807f,
+    type: 3}
+  isEquipment: 0
