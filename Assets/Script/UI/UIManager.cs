@@ -6,6 +6,8 @@ using TMPro;
 
 public class UIManager : MonoBehaviour
 {
+    public static UIManager instance;
+
     public RectTransform m_TestButton;
     public SkillLevelUpTest m_SkillLevelUp;
 
@@ -16,6 +18,11 @@ public class UIManager : MonoBehaviour
 
     SkillSetting m_PlayerSkill;
     Status m_PlayerStatus;
+
+    [SerializeField]
+    Slot m_Select_Slot;
+    [SerializeField]
+    Status m_Slot_Status;
 
     public TextMeshProUGUI m_PlayerSkillPoint;
     public TextMeshProUGUI m_PlayerStatusPoint;
@@ -32,6 +39,7 @@ public class UIManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        instance = this;
         m_SkillLevelUp = this.gameObject.GetComponent<SkillLevelUpTest>();
         m_PlayerSkill = m_Player.GetComponent<SkillSetting>();
         m_PlayerStatus = m_Player.GetComponent<Status>();
@@ -60,6 +68,26 @@ public class UIManager : MonoBehaviour
 
         m_PlayerSkillPoint.text = string.Format($"스킬포인트:{m_PlayerStatus.GetStatus("SkillPoint")}");
         m_PlayerStatusPoint.text = string.Format($"스텟포인트:{m_PlayerStatus.GetStatus("StatPoint")}");
+    }
+    public static UIManager Getinstance()
+    {
+        return instance;
+    }
+
+    public void SelectSlot(ref Slot slot, Status status)
+    {
+        m_Select_Slot = slot;
+        m_Slot_Status = status;
+    }
+    
+    public Slot ReturnSelectSlot()
+    {
+        return m_Select_Slot;
+    }
+
+    public Status ReturnSelectStatus()
+    {
+        return m_Slot_Status;
     }
 
     public void StatusSetUI(string status)

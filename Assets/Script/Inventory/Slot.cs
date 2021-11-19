@@ -32,11 +32,6 @@ public class Slot : MonoBehaviour
     public EquipmentUI m_Equiptment;
     public Status m_Obj_Status;
 
-    private void Update()
-    {
-        
-    }
-
     public void UpdatePlayerStatus()  // 버튼에 추가할 것
     {
         GameManager.Getinstance().m_Player.GetComponent<Status>().SetItemStatus(m_Obj_Status);
@@ -69,9 +64,10 @@ public class Slot : MonoBehaviour
         }
     }
 
-    public void SetItemImage(Image image)
+    public void SetItemImage(Sprite image)
     {
-        m_itemImage = image;
+        m_itemImage.sprite = image;
+        SetColor(1);
     }
 
     public void AddItem(Item item, Status status, int count = 1)
@@ -84,7 +80,18 @@ public class Slot : MonoBehaviour
         SetColor(1);
     }
 
-    void ClearSlot()
+    public void SetSelectSlot()
+    {
+        Slot slot = this;
+        UIManager.Getinstance().SelectSlot(ref slot, m_Obj_Status);
+    }
+
+    public void SetSlotStatus(Status status)
+    {
+        m_Obj_Status.StatusCopy(status);
+    }
+
+    public void ClearSlot()
     {
         m_item = null;
         m_itemCount = 0;
