@@ -34,11 +34,24 @@ public class EquipmentUI : MonoBehaviour
         {
             if(EquipmentSlot_List[i].m_Equiptment_Type == UI.ReturnSelectSlot().m_Equiptment_Type)
             {
-                EquipmentSlot_List[i].SetItemImage(UI.ReturnSelectSlot().m_itemImage.sprite);
-                EquipmentSlot_List[i].SetSlotStatus(UI.ReturnSelectSlot().m_Obj_Status);
-
-                Status PlayerStat = GameManager.Getinstance().m_Player.GetComponent<Status>();
+                PlayerCharacter player = GameManager.Getinstance().m_Player.GetComponent<PlayerCharacter>();
+                Status PlayerStat = player.GetComponent<Status>();
                 Status SlotStat = EquipmentSlot_List[i].GetComponent<Status>();
+                if (EquipmentSlot_List[i].isEquipment == false)
+                {
+                    EquipmentSlot_List[i].SetItemImage(UI.ReturnSelectSlot().m_itemImage.sprite);
+                    EquipmentSlot_List[i].SetSlotStatus(UI.ReturnSelectSlot().m_Obj_Status);
+                    EquipmentSlot_List[i].StetSlotItem(UI.ReturnSelectSlot().m_item);
+                    EquipmentSlot_List[i].isEquipment = true;
+                }
+                else
+                {
+                    PlayerStat.SetItemStatus(SlotStat, "-");
+                    UIManager.Getinstance().m_temp_Slot.CopySlot(EquipmentSlot_List[i]);
+                    player.ReturnPlayerInventory().AcquireItem(UIManager.Getinstance().m_temp_Slot);
+                    EquipmentSlot_List[i].SetItemImage(UI.ReturnSelectSlot().m_itemImage.sprite);
+                    EquipmentSlot_List[i].SetSlotStatus(UI.ReturnSelectSlot().m_Obj_Status);
+                }
                 PlayerStat.SetItemStatus(SlotStat);
                 UI.ReturnSelectSlot().ClearSlot();
             }

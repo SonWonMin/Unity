@@ -64,4 +64,16 @@ public class Inventory : MonoBehaviour
         }    
     }
 
+    public void AcquireItem(Slot slot)
+    {
+        for (int i = 0; i < slots.Length; i++)
+        {
+            if (slots[i].m_item == null)
+            {
+                slots[i].AddItem(slot.m_item, slot.m_Obj_Status);
+                return;
+            }
+        }
+    }
+
 }

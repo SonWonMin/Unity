@@ -21124,6 +21124,7 @@ MonoBehaviour:
   ItemList:
   - {fileID: 2580645166169784016, guid: b1364b20999c4ac47af0b333d6a3807f, type: 3}
   - {fileID: 752377734915551597, guid: 54a5a0e82d4f2fd42b6ffdd50fc377e0, type: 3}
+  - {fileID: 5525662315744140657, guid: b6e75ee6bacec3543835d5db09242733, type: 3}
 --- !u!1 &4367502515138418467
 GameObject:
   m_ObjectHideFlags: 0

@@ -23,6 +23,7 @@ public class UIManager : MonoBehaviour
     Slot m_Select_Slot;
     [SerializeField]
     Status m_Slot_Status;
+    public Slot m_temp_Slot;
 
     public TextMeshProUGUI m_PlayerSkillPoint;
     public TextMeshProUGUI m_PlayerStatusPoint;

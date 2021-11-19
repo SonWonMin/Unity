@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &752377734915551597
+--- !u!1 &5525662315744140657
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8,48 +8,48 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 2112714184810315488}
-  - component: {fileID: 877631532746831691}
-  - component: {fileID: 4197010945461290414}
-  - component: {fileID: 4152974070403354553}
-  - component: {fileID: 3388865848872129331}
-  - component: {fileID: 8246072150710765085}
+  - component: {fileID: 5645654549062745355}
+  - component: {fileID: 3867561202597535549}
+  - component: {fileID: 3356220701556509582}
+  - component: {fileID: 7448572072883703415}
+  - component: {fileID: -5787579033745105061}
+  - component: {fileID: -3136473970917468318}
   m_Layer: 10
-  m_Name: Boots_Item
+  m_Name: Storng_Staff
   m_TagString: Item
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &2112714184810315488
+--- !u!4 &5645654549062745355
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 752377734915551597}
+  m_GameObject: {fileID: 5525662315744140657}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 1.7358305, y: 0.45468807, z: 10.552065}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 0.5, y: 0.5, z: 0.5}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!33 &877631532746831691
+--- !u!33 &3867561202597535549
 MeshFilter:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 752377734915551597}
-  m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
---- !u!23 &4197010945461290414
+  m_GameObject: {fileID: 5525662315744140657}
+  m_Mesh: {fileID: 10208, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!23 &3356220701556509582
 MeshRenderer:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 752377734915551597}
+  m_GameObject: {fileID: 5525662315744140657}
   m_Enabled: 1
   m_CastShadows: 1
   m_ReceiveShadows: 1
@@ -82,39 +82,40 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
---- !u!65 &4152974070403354553
-BoxCollider:
+--- !u!136 &7448572072883703415
+CapsuleCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 752377734915551597}
+  m_GameObject: {fileID: 5525662315744140657}
   m_Material: {fileID: 0}
   m_IsTrigger: 1
   m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 1, y: 1, z: 1}
+  m_Radius: 0.5
+  m_Height: 2
+  m_Direction: 1
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &3388865848872129331
+--- !u!114 &-5787579033745105061
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 752377734915551597}
+  m_GameObject: {fileID: 5525662315744140657}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 4010b9234a74618429bb26b632fc2200, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  item: {fileID: 11400000, guid: a231b576f47b9f84c83c34e7595adec5, type: 2}
---- !u!114 &8246072150710765085
+  item: {fileID: 11400000, guid: 5699994233593eb40ba361a6f73c4c89, type: 2}
+--- !u!114 &-3136473970917468318
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 752377734915551597}
+  m_GameObject: {fileID: 5525662315744140657}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: cc9983b3d4305cd488ba132c65fec3d6, type: 3}
@@ -124,10 +125,10 @@ MonoBehaviour:
   m_HP: 0
   m_MP: 0
   m_Physical_ATK: 0
-  m_Magic_ATK: 0
+  m_Magic_ATK: 200
   m_ATK_Speed: 0
-  m_Defence: 5
-  m_Move_Speed: 1
+  m_Defence: 0
+  m_Move_Speed: 0
   m_HP_Recovery_sec: 0
   m_MP_Recovery_sec: 0
   Cur_Exp: 0

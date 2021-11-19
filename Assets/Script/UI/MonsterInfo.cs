@@ -21,7 +21,7 @@ public class MonsterInfo : MonoBehaviour
         PlayerCharacter Player = m_Player_Obj.GetComponent<PlayerCharacter>();
         m_UI_Obj = Player.GetAttackMonster();
 
-        if (m_UI_Obj && m_RectBackground && m_RectBar)
+        if (m_UI_Obj.GetComponent<Status>() && m_RectBackground && m_RectBar)
         {
             if (isHP)
                 SetHP_UI();

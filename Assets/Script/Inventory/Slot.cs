@@ -55,13 +55,18 @@ public class Slot : MonoBehaviour
 
     public void OnItemInfo()
     {
-        if (m_itemCount > 0)
+        if (m_item != null)
         {
             Slot TouchSlot = this.gameObject.GetComponent<Slot>();
             ItemInfoUI InfoUI = m_Inventory.ReturnInfoObj();
             m_Inventory.SetItemInfo(TouchSlot);
             InfoUI.SetItemInfo(m_item.m_Equipment_Comment);
         }
+    }
+
+    public void StetSlotItem(Item item)
+    {
+        m_item = item;
     }
 
     public void SetItemImage(Sprite image)
@@ -89,6 +94,16 @@ public class Slot : MonoBehaviour
     public void SetSlotStatus(Status status)
     {
         m_Obj_Status.StatusCopy(status);
+    }
+
+    public void CopySlot(Slot slot)
+    {
+        m_item = slot.m_item;
+        Debug.Log($"Slot Item : {slot.m_item}");
+        m_itemCount = slot.m_itemCount;
+        m_itemImage.sprite = slot.m_itemImage.sprite;
+        m_Equiptment_Type = (Equiptment)(int)slot.m_Equiptment_Type;
+        m_Obj_Status.StatusCopy(slot.m_Obj_Status);
     }
 
     public void ClearSlot()
