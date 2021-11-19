@@ -127,7 +127,7 @@ MonoBehaviour:
   m_Magic_ATK: 0
   m_ATK_Speed: 0
   m_Defence: 5
-  m_Move_Speed: 1
+  m_Move_Speed: 3
   m_HP_Recovery_sec: 0
   m_MP_Recovery_sec: 0
   Cur_Exp: 0

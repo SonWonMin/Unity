@@ -12,9 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6cf7937009e53cf46ab61a30ec73c311, type: 3}
   m_Name: Strong_Staff
   m_EditorClassIdentifier: 
-  m_Equipment_Name: 
-  m_Equipment_Comment: 
+  m_Equipment_Name: Strong_Staff
+  m_Equipment_Comment: "\uAC15\uD55C\uC2A4\uD0DC\uD504"
   m_Equipment_Type: 0
-  m_Equipment_Image: {fileID: 0}
-  m_Equipment_Prefab: {fileID: 0}
+  m_Equipment_Image: {fileID: 21300000, guid: 3fa53af4c50543b469421a6895537de8, type: 3}
+  m_Equipment_Prefab: {fileID: 5525662315744140657, guid: b6e75ee6bacec3543835d5db09242733,
+    type: 3}
   isEquipment: 0

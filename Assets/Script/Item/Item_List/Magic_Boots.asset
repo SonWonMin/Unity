@@ -16,5 +16,6 @@ MonoBehaviour:
   m_Equipment_Comment: "\uB9C8\uBC95\uBD80\uCE20"
   m_Equipment_Type: 4
   m_Equipment_Image: {fileID: 21300000, guid: f25b16c7add794b4e89be33447aaf8a4, type: 3}
-  m_Equipment_Prefab: {fileID: 0}
+  m_Equipment_Prefab: {fileID: 752377734915551597, guid: 54a5a0e82d4f2fd42b6ffdd50fc377e0,
+    type: 3}
   isEquipment: 0
