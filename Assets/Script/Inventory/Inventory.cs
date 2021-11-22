@@ -43,7 +43,7 @@ public class Inventory : MonoBehaviour
         m_ItemInfo_Obj.SetActive(true);
     }
 
-    public void OffItemInfo()
+    public void OffItemInfo()  // 아이템 정보 끄기
     {
         if (m_ItemInfo_Obj.activeSelf)
         {

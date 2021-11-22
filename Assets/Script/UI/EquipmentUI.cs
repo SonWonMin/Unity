@@ -6,6 +6,12 @@ public class EquipmentUI : MonoBehaviour
 {
     [SerializeField]
     List<Slot> EquipmentSlot_List = new List<Slot>();
+    [SerializeField]
+    GameObject m_Equipment_Obj;
+    [SerializeField]
+    GameObject m_Equipment_Info_Obj;
+    [SerializeField]
+    Slot m_Item_Info_Slot;
 
     // Start is called before the first frame update
     void Start()
@@ -27,6 +33,39 @@ public class EquipmentUI : MonoBehaviour
         }
     }
 
+    public ItemInfoUI ReturnInfoObj()
+    {
+        return m_Equipment_Info_Obj.GetComponent<ItemInfoUI>();
+    }
+
+    public void OffEquipmentInfo()
+    {
+        if (m_Equipment_Info_Obj.activeSelf)
+        {
+            m_Equipment_Obj.transform.localPosition = new Vector3(0, 0, 0);
+            m_Equipment_Info_Obj.SetActive(false);
+        }
+    }
+
+    public void UnEquipment()
+    {
+        UIManager UI = UIManager.Getinstance();
+        PlayerCharacter player = GameManager.Getinstance().m_Player.GetComponent<PlayerCharacter>();
+        Status PlayerStat = player.GetComponent<Status>();
+
+        PlayerStat.SetItemStatus(UI.ReturnSelectStatus(), "-");  // 능력치를 뺀다.
+        player.ReturnPlayerInventory().AcquireItem(UI.ReturnSelectSlot());
+        UI.ReturnSelectSlot().ClearSlot();
+    }
+
+    public void SetItemInfo(Slot touchslot)
+    {
+        m_Equipment_Obj.transform.localPosition = new Vector3(-350, 0, 0);
+        m_Item_Info_Slot.SetData(touchslot.m_item, touchslot.m_itemImage, touchslot.isEquipment, touchslot.m_Slot_Type, touchslot.m_Equiptment_Type);
+        m_Item_Info_Slot.m_Obj_Status.StatusCopy(touchslot.m_Obj_Status);
+        m_Equipment_Info_Obj.SetActive(true);
+    }
+
     public void SetEquipementSlot()
     {
         UIManager UI = UIManager.Getinstance();
@@ -45,7 +84,7 @@ public class EquipmentUI : MonoBehaviour
                     EquipmentSlot_List[i].isEquipment = true;
                     UI.ReturnSelectSlot().ClearSlot();
                 }
-                else  // 구조가 뭔가 잘못됬음
+                else 
                 {
                     PlayerStat.SetItemStatus(SlotStat, "-");  // 능력치를 뺀다.
                     UIManager.Getinstance().m_temp_Slot.CopySlot(UI.ReturnSelectSlot());

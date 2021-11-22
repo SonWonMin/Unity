@@ -64,6 +64,17 @@ public class Slot : MonoBehaviour
         }
     }
 
+    public void OnEquipmentInfo()
+    {
+        if(m_item != null)
+        {
+            Slot TouchSlot = this.gameObject.GetComponent<Slot>();
+            ItemInfoUI InfoUI = m_Equiptment.ReturnInfoObj();
+            m_Equiptment.SetItemInfo(TouchSlot);
+            InfoUI.SetItemInfo(m_item.m_Equipment_Comment);
+        }
+    }
+
     public void StetSlotItem(Item item)
     {
         m_item = item;
