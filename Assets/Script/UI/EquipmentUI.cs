@@ -43,17 +43,17 @@ public class EquipmentUI : MonoBehaviour
                     EquipmentSlot_List[i].SetSlotStatus(UI.ReturnSelectSlot().m_Obj_Status);
                     EquipmentSlot_List[i].StetSlotItem(UI.ReturnSelectSlot().m_item);
                     EquipmentSlot_List[i].isEquipment = true;
+                    UI.ReturnSelectSlot().ClearSlot();
                 }
-                else
+                else  // 구조가 뭔가 잘못됬음
                 {
-                    PlayerStat.SetItemStatus(SlotStat, "-");
-                    UIManager.Getinstance().m_temp_Slot.CopySlot(EquipmentSlot_List[i]);
-                    player.ReturnPlayerInventory().AcquireItem(UIManager.Getinstance().m_temp_Slot);
-                    EquipmentSlot_List[i].SetItemImage(UI.ReturnSelectSlot().m_itemImage.sprite);
-                    EquipmentSlot_List[i].SetSlotStatus(UI.ReturnSelectSlot().m_Obj_Status);
+                    PlayerStat.SetItemStatus(SlotStat, "-");  // 능력치를 뺀다.
+                    UIManager.Getinstance().m_temp_Slot.CopySlot(UI.ReturnSelectSlot());
+                    UI.ReturnSelectSlot().ClearSlot();
+                    player.ReturnPlayerInventory().AcquireItem(EquipmentSlot_List[i]);
+                    EquipmentSlot_List[i].CopySlot(UIManager.Getinstance().m_temp_Slot);
                 }
                 PlayerStat.SetItemStatus(SlotStat);
-                UI.ReturnSelectSlot().ClearSlot();
             }
             // 현재 선택한 슬롯의 아이템의 타입이 EquipmentSlot_List[i] 의 타입과 동일하다면
             // i번째 슬롯의 이미지와 아이템을 현재 선택한 슬롯의 아이템 이미지로 변경하고
