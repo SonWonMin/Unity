@@ -25,7 +25,7 @@ public class DropItemList : MonoBehaviour
         {
             if(RandPercent >= Between_First && RandPercent <= Between_Sec)
             {
-                GameObject DropItem = Instantiate(ItemList[i], this.gameObject.transform.position, this.gameObject.transform.rotation);
+                GameObject DropItem = Instantiate(ItemList[i], this.gameObject.transform.position, ItemList[i].transform.localRotation);
                 break;
             }
             else

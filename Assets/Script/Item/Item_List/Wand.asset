@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6cf7937009e53cf46ab61a30ec73c311, type: 3}
+  m_Name: Wand
+  m_EditorClassIdentifier: 
+  m_Equipment_Name: Wand
+  m_Equipment_Comment: "\uC644\uB4DC"
+  m_Equipment_Type: 0
+  m_Equipment_Image: {fileID: 21300000, guid: 3fa53af4c50543b469421a6895537de8, type: 3}
+  m_Equipment_Prefab: {fileID: 2465131875111477194, guid: a050ca25e79c25748b6ab1eb54d56e38,
+    type: 3}
+  isEquipment: 0

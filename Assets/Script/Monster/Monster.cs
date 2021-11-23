@@ -29,11 +29,15 @@ public class Monster : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        TargetChase();
-        TargetAttack();
         StateUpdate();
     }
-    
+
+    private void FixedUpdate()
+    {
+        TargetChase();
+        TargetAttack();
+    }
+
     void MonsterInit()
     {
         m_MonsterStatus = gameObject.GetComponent<Status>();
