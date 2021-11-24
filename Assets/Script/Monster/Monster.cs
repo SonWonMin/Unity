@@ -12,8 +12,10 @@ public class Monster : MonoBehaviour
     SkillSetting m_MonsterSkillSetting;
     [SerializeField]
     DropItemList m_MonsterDropItem;
+    [SerializeField]
+    Animator m_MonsterAnimator;
 
-    enum MonsterState { IDLE, CHASE, ATTACK };  // 대기상태, 추적상태, 공격상태.
+    enum MonsterState { IDLE, MOVE, ATTACK };  // 대기상태, 추적상태, 공격상태.
     MonsterState curState;
 
     Collider[] m_TargetFind;
@@ -52,11 +54,35 @@ public class Monster : MonoBehaviour
         switch(curState)
         {
             case MonsterState.IDLE:
+                AnimationSetting("IDLE");
                 break;
-            case MonsterState.CHASE:
+            case MonsterState.MOVE:
+                AnimationSetting("MOVE");
                 break;
             case MonsterState.ATTACK:
+                AnimationSetting("ATTACK");
                 m_MonsterStatus.SetStatus("Move_Speed", 0);
+                break;
+        }
+    }
+    public void AnimationSetting(string state) // 애니메이션 상태를 세팅한다
+    {
+        switch (state)
+        {
+            case "IDLE":
+                m_MonsterAnimator.SetBool("Idle", true);
+                m_MonsterAnimator.SetBool("Move", false);
+                m_MonsterAnimator.SetBool("Attack", false);
+                break;
+            case "MOVE":
+                m_MonsterAnimator.SetBool("Idle", false);
+                m_MonsterAnimator.SetBool("Move", true);
+                m_MonsterAnimator.SetBool("Attack", false);
+                break;
+            case "ATTACK":
+                m_MonsterAnimator.SetBool("Idle", false);
+                m_MonsterAnimator.SetBool("Move", false);
+                m_MonsterAnimator.SetBool("Attack", true);
                 break;
         }
     }
@@ -66,20 +92,21 @@ public class Monster : MonoBehaviour
         int nLayer = 1 << LayerMask.NameToLayer("Player");
         m_TargetFind = Physics.OverlapSphere(transform.position,
              m_MonsterStatus.GetStatus("ChaseRange"), nLayer);
-
-        for (int i = 0; i < m_TargetFind.Length; i++)
+        if (m_TargetFind.Length > 0)
         {
-            if(m_TargetFind[i])
+            for (int i = 0; i < m_TargetFind.Length; i++)
             {
-                curState = MonsterState.CHASE;
-                Vector3 TargetPosition = new Vector3(m_TargetFind[i].transform.position.x, m_MonsterObj.transform.position.y, m_TargetFind[i].transform.position.z);
-                transform.LookAt(TargetPosition);
-                MoveTest(m_TargetFind[i].transform);
+                if (m_TargetFind[i])
+                {
+                    Vector3 TargetPosition = new Vector3(m_TargetFind[i].transform.position.x, m_MonsterObj.transform.position.y, m_TargetFind[i].transform.position.z);
+                    transform.LookAt(TargetPosition);
+                    MoveTest(m_TargetFind[i].transform);
+                }
             }
-            else
-            {
-                curState = MonsterState.IDLE;
-            }
+        }
+        else
+        {
+            curState = MonsterState.IDLE;
         }
     }
 
@@ -89,19 +116,17 @@ public class Monster : MonoBehaviour
         m_TargetFind = Physics.OverlapSphere(transform.position,
              m_MonsterStatus.GetStatus("AttackRange"), nLayer);
 
-        for (int i = 0; i < m_TargetFind.Length; i++)
+        if (m_TargetFind.Length > 0)
         {
-            if (m_TargetFind[i])
+            for (int i = 0; i < m_TargetFind.Length; i++)
             {
-                curState = MonsterState.ATTACK;
-                Vector3 TargetPosition = new Vector3(m_TargetFind[i].transform.position.x, m_MonsterObj.transform.position.y, m_TargetFind[i].transform.position.z);
-                transform.LookAt(TargetPosition);  // (만약 쓴다면 lerp 였나 부드러운 움직임 쓰는것도 좋을듯)
-                float nTime = m_MonsterStatus.GetStatus("ATK_Speed");
-                StartCoroutine(AttackState(m_TargetFind[i], nTime));
-            }
-            else
-            {
-                curState = MonsterState.IDLE;
+                if (m_TargetFind[i])
+                {
+                    Vector3 TargetPosition = new Vector3(m_TargetFind[i].transform.position.x, m_MonsterObj.transform.position.y, m_TargetFind[i].transform.position.z);
+                    transform.LookAt(TargetPosition);  // (만약 쓴다면 lerp 였나 부드러운 움직임 쓰는것도 좋을듯)
+                    float nTime = m_MonsterStatus.GetStatus("ATK_Speed");
+                    StartCoroutine(AttackState(m_TargetFind[i], nTime));
+                }
             }
         }
     }
@@ -116,28 +141,37 @@ public class Monster : MonoBehaviour
 
         float fDist = vDist.magnitude;  // 사이 거리 벡터의 거리(길이)를 반환한다.
 
-        if (fDist > m_MonsterStatus.GetStatus("AttackRange"))  // 타겟과의 거리가 나 자신의 공격범위보다 먼 경우 실행
+        if (fDist > m_MonsterStatus.GetStatus("AttackRange"))
         {
+            curState = MonsterState.MOVE;
             this.transform.position += vDir * m_MonsterStatus.GetStatus("Move_Speed") * Time.deltaTime;  // 현재 포지션을 일정한 속도로 이동
+        }
+        else
+        {
+            curState = MonsterState.IDLE;
         }
     }
 
     public IEnumerator AttackState(Collider target, float waitTime)
     {
-        yield return new WaitForSeconds(waitTime);
         if(m_MonsterSkillSetting.GetMagicLevel(0) > 0)
         {
-            m_MonsterSkill.MultiRangeAttack(ref m_MonsterStatus);
+            if(m_MonsterSkill.MultiRangeAttack(ref m_MonsterStatus))
+                curState = MonsterState.ATTACK;
         }
         else if((m_MonsterSkillSetting.GetMagicLevel(1) > 0))
         {
-            m_MonsterSkill.RangedAttack(ref m_MonsterStatus, target.transform); 
+            if(m_MonsterSkill.RangedAttack(ref m_MonsterStatus, target.transform))
+                curState = MonsterState.ATTACK;
         }
         else if ((m_MonsterSkillSetting.GetMagicLevel(2) > 0))
         {
-            m_MonsterSkill.IceRangeAttack(ref m_MonsterStatus);
+            if(m_MonsterSkill.IceRangeAttack(ref m_MonsterStatus))
+                curState = MonsterState.ATTACK;
         }
+        yield return new WaitForSeconds(waitTime);
         m_MonsterStatus.SetStatus("Move_Speed", m_MonsterStatus.GetOriginalStatus("Move_Speed"));
+        curState = MonsterState.IDLE;
     }
 
     private void OnDrawGizmos()

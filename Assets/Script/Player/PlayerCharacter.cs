@@ -92,10 +92,7 @@ public class PlayerCharacter : MonoBehaviour
                 PlayerAnimation.SetBool("Attack", false);
                 break;
             case "ATTACK":
-                PlayerAnimation.SetBool("Idle", false);
-                PlayerAnimation.SetBool("Walk", false);
-                PlayerAnimation.SetBool("Run", false);
-                PlayerAnimation.SetBool("Attack", true);
+                StartCoroutine(Attack_Animation());
                 break;
             case "SKILL1":
                 StartCoroutine(Skill_1_Animation());
@@ -208,6 +205,7 @@ public class PlayerCharacter : MonoBehaviour
         {
             m_Time = 0;
             m_PlayerSkill.NormalRangeAttack(ref m_PlayerStatus);
+            SetPlayerStatus("ATTACK");
         }
     }
 
@@ -218,20 +216,28 @@ public class PlayerCharacter : MonoBehaviour
 
     public void PlayerSkill_1() // 투사체 발사
     {
-        if(m_PlayerSkill.MultiRangeAttack(ref m_PlayerStatus))
-            m_curState = CharacterState.SKILL_1;
+        if (m_PlayerSkill.MultiRangeAttack(ref m_PlayerStatus))
+            SetPlayerStatus("SKILL1");
     }
 
     public void PlayerSkill_2() // 범위 공격
     {
         if(m_PlayerSkill.RangedAttack(ref m_PlayerStatus, m_SkillRange.transform))
-            m_curState = CharacterState.SKILL_2;
+            SetPlayerStatus("SKILL2");
     }
 
     public void PlayerSkill_3() // 얼음 범위공격
     {
         if(m_PlayerSkill.IceRangeAttack(ref m_PlayerStatus))
-            m_curState = CharacterState.SKILL_3;
+            SetPlayerStatus("SKILL3");
+    }
+
+    public IEnumerator Attack_Animation()
+    {
+        PlayerAnimation.SetBool("Attack", true);
+        yield return new WaitForSeconds(0.1f);
+        PlayerAnimation.SetBool("Attack", false);
+        m_curState = CharacterState.IDLE;
     }
 
     public IEnumerator Skill_1_Animation()
