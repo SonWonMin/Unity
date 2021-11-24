@@ -31,7 +31,8 @@ public class Monster : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        StateUpdate();
+        if(m_MonsterAnimator)
+            StateUpdate();
     }
 
     private void FixedUpdate()
@@ -96,7 +97,7 @@ public class Monster : MonoBehaviour
         {
             for (int i = 0; i < m_TargetFind.Length; i++)
             {
-                if (m_TargetFind[i])
+                if (m_TargetFind[i] && curState != MonsterState.ATTACK)
                 {
                     Vector3 TargetPosition = new Vector3(m_TargetFind[i].transform.position.x, m_MonsterObj.transform.position.y, m_TargetFind[i].transform.position.z);
                     transform.LookAt(TargetPosition);
@@ -146,17 +147,13 @@ public class Monster : MonoBehaviour
             curState = MonsterState.MOVE;
             this.transform.position += vDir * m_MonsterStatus.GetStatus("Move_Speed") * Time.deltaTime;  // 현재 포지션을 일정한 속도로 이동
         }
-        else
-        {
-            curState = MonsterState.IDLE;
-        }
     }
 
     public IEnumerator AttackState(Collider target, float waitTime)
     {
         if(m_MonsterSkillSetting.GetMagicLevel(0) > 0)
         {
-            if(m_MonsterSkill.MultiRangeAttack(ref m_MonsterStatus))
+            if (m_MonsterSkill.MultiRangeAttack(ref m_MonsterStatus, m_MonsterSkillSetting.GetMagicLevel(0), waitTime))
                 curState = MonsterState.ATTACK;
         }
         else if((m_MonsterSkillSetting.GetMagicLevel(1) > 0))
@@ -169,7 +166,7 @@ public class Monster : MonoBehaviour
             if(m_MonsterSkill.IceRangeAttack(ref m_MonsterStatus))
                 curState = MonsterState.ATTACK;
         }
-        yield return new WaitForSeconds(waitTime);
+        yield return new WaitForSeconds(0.1f);
         m_MonsterStatus.SetStatus("Move_Speed", m_MonsterStatus.GetOriginalStatus("Move_Speed"));
         curState = MonsterState.IDLE;
     }

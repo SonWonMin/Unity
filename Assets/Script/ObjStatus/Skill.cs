@@ -28,7 +28,7 @@ public class Skill : Effect
         }
     }
 
-    public bool MultiRangeAttack(ref Status status, int ProjectileCount = 1)
+    public bool MultiRangeAttack(ref Status status, int ProjectileCount = 1, float coolTime = 0.5f)
     {
         int level = m_Caster_Skill.GetMagicLevel(0);
 
@@ -38,7 +38,7 @@ public class Skill : Effect
             Debug.Log(m_Caster);
             if (status.GetStatus("Cur_MP") >= 20 && m_Caster_Skill.GetCoolTime("MultiRangeAttack") <= 0)  // 임시 마나 소모량 체크. 이후에 마나 소모량 각각 추가할 것
             {
-                m_Caster_Skill.SetCoolTime("MultiRangeAttack", 0.5f);
+                m_Caster_Skill.SetCoolTime("MultiRangeAttack", coolTime);
                 GameObject CopyObj = ProjectileManager.Getinstance().GetPrefab(1);
                 Projectile ProjectileObj = CopyObj.GetComponent<Projectile>();
                 ProjectileObj.SetCaster(ref m_Caster);
