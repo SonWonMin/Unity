@@ -13,6 +13,7 @@ public class ButtonControl : MonoBehaviour, IPointerDownHandler, IDragHandler, I
     GameObject m_MoveObj;
     [SerializeField]
     GameObject m_PlayerObj;
+    SkillSetting m_Player_SkillSetting;
 
     RectTransform m_rectBack;
     RectTransform m_rectJoystick;
@@ -31,6 +32,7 @@ public class ButtonControl : MonoBehaviour, IPointerDownHandler, IDragHandler, I
     void Start()
     {
         m_MoveObj = m_PlayerObj.GetComponent<PlayerCharacter>().GetSkillRange();
+        m_Player_SkillSetting = m_PlayerObj.GetComponent<SkillSetting>();
         m_rectBack = m_BackObj.GetComponent<RectTransform>();
         m_rectJoystick = m_JoystickObj.GetComponent<RectTransform>();
         m_fRadius = m_rectBack.rect.width * 0.5f;
@@ -38,7 +40,7 @@ public class ButtonControl : MonoBehaviour, IPointerDownHandler, IDragHandler, I
 
     void Update()
     {
-        if (m_PlayerObj)
+        if (m_PlayerObj && m_Player_SkillSetting.GetMagicLevel(1) > 0)
         {
             if (m_bTouch && m_MoveObj)
             {

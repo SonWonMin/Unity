@@ -28,7 +28,7 @@ public class Skill : Effect
         }
     }
 
-    public void MultiRangeAttack(ref Status status, int ProjectileCount = 1)
+    public bool MultiRangeAttack(ref Status status, int ProjectileCount = 1)
     {
         int level = m_Caster_Skill.GetMagicLevel(0);
 
@@ -44,10 +44,12 @@ public class Skill : Effect
                 ProjectileObj.SetCaster(ref m_Caster);
                 ProjectileEffect(CopyObj, ref m_Caster, 500, ProjectileCount * level, 10);
                 status.SetStatus("MP", 20, "-");  // 설정 스텟, 수치, 연산
+                return true;
             }
             // 투사체의 위치 caster 의 위치로 설정
             // forward 로 일정함 힘으로 이동  // 일정 거리 이동 시 파괴
         }
+        return false;
     }
 
     public void RangedAttack(ref Status status, GameObject target) // 타겟의 위치에 스킬 사용
@@ -70,7 +72,7 @@ public class Skill : Effect
         }
     }
 
-    public void RangedAttack(ref Status status, Transform skill_position)  // 스킬 범위 위치에 스킬 사용
+    public bool RangedAttack(ref Status status, Transform skill_position)  // 스킬 범위 위치에 스킬 사용
     {
         int level = m_Caster_Skill.GetMagicLevel(1);
 
@@ -86,11 +88,13 @@ public class Skill : Effect
                 ProjectileObj.SetCaster(ref m_Caster);
                 RangeAttackEffect(skill_position, CopyObj, 0.5f, 3.5f, 1.1f * level);
                 status.SetStatus("MP", 50, "-");
+                return true;
             }
         }
+        return false;
     }
 
-    public void IceRangeAttack(ref Status status) // 사용자의 위치에 스킬 사용
+    public bool IceRangeAttack(ref Status status) // 사용자의 위치에 스킬 사용
     {
         int level = m_Caster_Skill.GetMagicLevel(2);
 
@@ -106,8 +110,10 @@ public class Skill : Effect
                 ProjectileObj.SetCaster(ref m_Caster);
                 RangeAttackEffect(status.transform, CopyObj, 2.0f, 2.0f, 5.0f);
                 status.SetStatus("MP", 50, "-");
+                return true;
             }
         }
+        return false;
     }
 
     public ref Status GetCaster()

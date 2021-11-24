@@ -47,13 +47,20 @@ public class JoystickTest : MonoBehaviour, IPointerDownHandler, IDragHandler, IP
 
         // 조이스틱 배경과 조이스틱과의 거리 비율로 이동합니다.
         float fSqr = (m_rectBack.position - m_rectJoystick.position).sqrMagnitude / (m_fRadius * m_fRadius);
-
         // 터치위치 정규화
         Vector2 vecNormal = vec.normalized;
         if (m_MoveObj)
         {
             m_vecMove = new Vector3(vecNormal.x * m_fSpeed * Time.deltaTime * fSqr, 0f, vecNormal.y * m_fSpeed * Time.deltaTime * fSqr);
             m_MoveObj.transform.eulerAngles = new Vector3(0f, Mathf.Atan2(vecNormal.x, vecNormal.y) * Mathf.Rad2Deg, 0f);
+        }
+        if(fSqr <= 0.25)
+        {
+            Player.SetPlayerStatus("WALK");
+        }
+        else
+        {
+            Player.SetPlayerStatus("RUN");
         }
     }
 
@@ -62,7 +69,7 @@ public class JoystickTest : MonoBehaviour, IPointerDownHandler, IDragHandler, IP
         if (m_MoveObj.activeSelf)
         {
             OnTouch(eventData.position);
-            Player.GetPlayerStatus("RUN");
+            //Debug.Log($"Position : {eventData.position}");
             m_bTouch = true;
         }
     }
@@ -72,7 +79,6 @@ public class JoystickTest : MonoBehaviour, IPointerDownHandler, IDragHandler, IP
         if (m_MoveObj.activeSelf)
         {
             OnTouch(eventData.position);
-            Player.GetPlayerStatus("IDLE");
             m_bTouch = true;
         }
     }
@@ -81,6 +87,7 @@ public class JoystickTest : MonoBehaviour, IPointerDownHandler, IDragHandler, IP
     {
         // 원래 위치로 되돌립니다.
         m_rectJoystick.localPosition = Vector2.zero;
+        Player.SetPlayerStatus("IDLE");
         m_bTouch = false;
     }
 }

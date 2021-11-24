@@ -9,6 +9,8 @@ public class PlayerCharacter : MonoBehaviour
     [SerializeField]
     Skill m_PlayerSkill;
     [SerializeField]
+    SkillSetting m_PlayerSkill_Setting;
+    [SerializeField]
     GameObject m_SkillRange;
     [SerializeField]
     List<GameObject> m_ATK_Monster_List;
@@ -21,7 +23,7 @@ public class PlayerCharacter : MonoBehaviour
 
     float m_Time = 0;
 
-    enum CharacterState{ IDLE, WALK, RUN, ATTACK };
+    enum CharacterState{ IDLE, WALK, RUN, ATTACK, SKILL_1, SKILL_2, SKILL_3 };
     CharacterState m_curState;
 
     private void Start()
@@ -34,7 +36,7 @@ public class PlayerCharacter : MonoBehaviour
     {
         m_Time += Time.deltaTime;
         RemoveMonsterList();
-        //StateUpdate();
+        StateUpdate();
     }
 
     void StateUpdate() // 상태를 업데이트 한다.
@@ -53,6 +55,15 @@ public class PlayerCharacter : MonoBehaviour
             case CharacterState.ATTACK:
                 AnimationSetting("ATTACK");
                 break;
+            case CharacterState.SKILL_1:
+                AnimationSetting("SKILL1");
+                break;
+            case CharacterState.SKILL_2:
+                AnimationSetting("SKILL2");
+                break;
+            case CharacterState.SKILL_3:
+                AnimationSetting("SKILL3");
+                break;
             default:
                 break;
         }
@@ -63,35 +74,72 @@ public class PlayerCharacter : MonoBehaviour
         switch(state)
         {
             case "IDLE":
-                PlayerAnimation.SetBool("isIdle", true);
-                PlayerAnimation.SetBool("isWalk", false);
-                PlayerAnimation.SetBool("isRun", false);
-                PlayerAnimation.SetBool("isAttack", false);
+                PlayerAnimation.SetBool("Idle", true);
+                PlayerAnimation.SetBool("Walk", false);
+                PlayerAnimation.SetBool("Run", false);
+                PlayerAnimation.SetBool("Attack", false);
                 break;
             case "WALK":
-                PlayerAnimation.SetBool("isIdle", false);
-                PlayerAnimation.SetBool("isWalk", true);
-                PlayerAnimation.SetBool("isRun", false);
-                PlayerAnimation.SetBool("isAttack", false);
+                PlayerAnimation.SetBool("Idle", false);
+                PlayerAnimation.SetBool("Walk", true);
+                PlayerAnimation.SetBool("Run", false);
+                PlayerAnimation.SetBool("Attack", false);
                 break;
             case "RUN":
-                PlayerAnimation.SetBool("isIdle", false);
-                PlayerAnimation.SetBool("isWalk", false);
-                PlayerAnimation.SetBool("isRun", true);
-                PlayerAnimation.SetBool("isAttack", false);
+                PlayerAnimation.SetBool("Idle", false);
+                PlayerAnimation.SetBool("Walk", false);
+                PlayerAnimation.SetBool("Run", true);
+                PlayerAnimation.SetBool("Attack", false);
                 break;
             case "ATTACK":
-                PlayerAnimation.SetBool("isIdle", false);
-                PlayerAnimation.SetBool("isWalk", false);
-                PlayerAnimation.SetBool("isRun", false);
-                PlayerAnimation.SetBool("isAttack", true);
+                PlayerAnimation.SetBool("Idle", false);
+                PlayerAnimation.SetBool("Walk", false);
+                PlayerAnimation.SetBool("Run", false);
+                PlayerAnimation.SetBool("Attack", true);
+                break;
+            case "SKILL1":
+                StartCoroutine(Skill_1_Animation());
+                break;
+            case "SKILL2":
+                StartCoroutine(Skill_2_Animation());
+                break;
+            case "SKILL3":
+                StartCoroutine(Skill_3_Animation());
                 break;
         }
     }
 
-    public float GetPlayerStatus(string Status) // 현재 플레이어의 상태를 지정한다.
+    public float GetPlayerStatus(string Status) // 현재 플레이어의 상태를 지정한다. 이거 아닌데
     {
         return m_PlayerStatus.GetStatus(Status);
+    }
+
+    public void SetPlayerStatus(string Status)
+    {
+        switch(Status)
+        {
+            case "IDLE":
+                m_curState = CharacterState.IDLE;
+                break;
+            case "WALK":
+                m_curState = CharacterState.WALK;
+                break;
+            case "RUN":
+                m_curState = CharacterState.RUN;
+                break;
+            case "ATTACK":
+                m_curState = CharacterState.ATTACK;
+                break;
+            case "SKILL1":
+                m_curState = CharacterState.SKILL_1;
+                break;
+            case "SKILL2":
+                m_curState = CharacterState.SKILL_2;
+                break;
+            case "SKILL3":
+                m_curState = CharacterState.SKILL_3;
+                break;
+        }
     }
 
     public void AddMonsterList(GameObject monster) // 몬스터 리스트에 추가한다.
@@ -170,17 +218,43 @@ public class PlayerCharacter : MonoBehaviour
 
     public void PlayerSkill_1() // 투사체 발사
     {
-        m_PlayerSkill.MultiRangeAttack(ref m_PlayerStatus);
+        if(m_PlayerSkill.MultiRangeAttack(ref m_PlayerStatus))
+            m_curState = CharacterState.SKILL_1;
     }
 
     public void PlayerSkill_2() // 범위 공격
     {
-        m_PlayerSkill.RangedAttack(ref m_PlayerStatus, m_SkillRange.transform);
+        if(m_PlayerSkill.RangedAttack(ref m_PlayerStatus, m_SkillRange.transform))
+            m_curState = CharacterState.SKILL_2;
     }
 
     public void PlayerSkill_3() // 얼음 범위공격
     {
-        m_PlayerSkill.IceRangeAttack(ref m_PlayerStatus);
+        if(m_PlayerSkill.IceRangeAttack(ref m_PlayerStatus))
+            m_curState = CharacterState.SKILL_3;
     }
 
+    public IEnumerator Skill_1_Animation()
+    {
+        PlayerAnimation.SetBool("Skill_1", true);
+        yield return new WaitForSeconds(0.1f);
+        PlayerAnimation.SetBool("Skill_1", false);
+        m_curState = CharacterState.IDLE;
+    }
+
+    public IEnumerator Skill_2_Animation()
+    {
+        PlayerAnimation.SetBool("Skill_2", true);
+        yield return new WaitForSeconds(0.1f);
+        PlayerAnimation.SetBool("Skill_2", false);
+        m_curState = CharacterState.IDLE;
+    }
+
+    public IEnumerator Skill_3_Animation()
+    {
+        PlayerAnimation.SetBool("Skill_3", true);
+        yield return new WaitForSeconds(0.1f);
+        PlayerAnimation.SetBool("Skill_3", false);
+        m_curState = CharacterState.IDLE;
+    }
 }
