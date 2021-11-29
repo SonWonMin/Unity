@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class ProjectileManager : MonoBehaviour
 {
-
     public List<GameObject> ProjectilePrefab;
+    public List<GameObject> ProjectileObj;
     public static ProjectileManager instance;
 
     void Awake()
@@ -13,16 +13,15 @@ public class ProjectileManager : MonoBehaviour
         instance = this;
     }
 
-    // Start is called before the first frame update
     void Start()
     {
-
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
+        for (int i = 0; i < 20; i++)
+        {
+            GameObject Projectile = Instantiate(GetPrefab(1), this.transform.position, Quaternion.identity);
+            Projectile.transform.parent = this.gameObject.transform;
+            Projectile.SetActive(false);
+            ProjectileObj.Add(Projectile);
+        }
     }
 
     public static ProjectileManager Getinstance()

@@ -58,11 +58,6 @@ public class UIManager : MonoBehaviour
             TestButtonReturn();
         }
 
-        for(int i = 0; i < Skilllv.Count; i++)
-        {
-            GetPlayerSkillLv(i);
-        }
-
         MonsterInfoActive();
         GetStatusLv();
         GetStatusInfo();
@@ -229,9 +224,12 @@ public class UIManager : MonoBehaviour
         }
     }
 
-    public void GetPlayerSkillLv(int num)
+    public void GetPlayerSkillLv()
     {
-        Skilllv[num].text = string.Format($"레벨{m_PlayerSkill.GetMagicLevel(num)}");
+        for (int i = 0; i < Skilllv.Count; i++)
+        {
+            Skilllv[i].text = string.Format($"레벨{m_PlayerSkill.GetMagicLevel(i)}");
+        }
     }
 
 }

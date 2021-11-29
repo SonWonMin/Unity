@@ -19,12 +19,6 @@ public class EquipmentUI : MonoBehaviour
         InitEquipmentSlot();
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
     public void InitEquipmentSlot()
     {
         for(int i = 0; i < EquipmentSlot_List.Count; i++)
@@ -76,6 +70,7 @@ public class EquipmentUI : MonoBehaviour
                 PlayerCharacter player = GameManager.Getinstance().m_Player.GetComponent<PlayerCharacter>();
                 Status PlayerStat = player.GetComponent<Status>();
                 Status SlotStat = EquipmentSlot_List[i].GetComponent<Status>();
+
                 if (EquipmentSlot_List[i].isEquipment == false)
                 {
                     EquipmentSlot_List[i].SetItemImage(UI.ReturnSelectSlot().m_itemImage.sprite);
