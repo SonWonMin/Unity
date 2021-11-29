@@ -9927,7 +9927,8 @@ MonoBehaviour:
   - {fileID: 7563067324080721721, guid: 8d86416b49cffda49bcfb3290994848f, type: 3}
   - {fileID: 3951414816245205583, guid: 4e618271329c86b43b55a3525be2a44e, type: 3}
   - {fileID: 1819300396708525838, guid: dcce8ad827fe373409e01dfd7548aa02, type: 3}
-  ProjectileObj: []
+  ProjectilePool: []
+  UsedPool: []
 --- !u!4 &953796737
 Transform:
   m_ObjectHideFlags: 0
@@ -21031,6 +21032,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_TagString
       value: Player
+      objectReference: {fileID: 0}
+    - target: {fileID: 6853258897020767234, guid: f9879b19e47973e419d580aa126bdd6c,
+        type: 3}
+      propertyPath: m_ApplyRootMotion
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6868360891916942021, guid: f9879b19e47973e419d580aa126bdd6c,
         type: 3}

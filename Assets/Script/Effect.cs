@@ -11,7 +11,7 @@ public class Effect : MonoBehaviour
 
         for (int i = 0; i < ProjectileCount; i++)
         {
-            CopyProjectileObj.Add(Instantiate(projectile, caster.transform.position + caster.transform.forward, caster.transform.rotation));
+            CopyProjectileObj.Add(Instantiate(projectile, caster.transform.position + caster.transform.forward, caster.transform.rotation));  // 복사말고 필요한 개수만큼 가져오는걸로
 
             if (i >= 1)
             {
