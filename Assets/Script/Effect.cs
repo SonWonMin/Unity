@@ -34,9 +34,9 @@ public class Effect : MonoBehaviour
 
     }
 
-    public void RangeAttackEffect(Transform skill_position, GameObject attackObj, float attack_Delay, float duration_Time, float multiple = 1) // 범위 공격 테스트, 일단 이렇게 해두고 이후에 해보면서 추가하기 스킬 범위까지 추가하기
+    public void RangeAttackEffect(Vector3 skill_position, GameObject attackObj, float attack_Delay, float duration_Time, float multiple = 1) // 범위 공격 테스트, 일단 이렇게 해두고 이후에 해보면서 추가하기 스킬 범위까지 추가하기
     {
-        GameObject AttackObj = Instantiate(attackObj, skill_position.position , Quaternion.identity);
+        GameObject AttackObj = Instantiate(attackObj, skill_position, Quaternion.identity);
         RangeObj rangeComponent = AttackObj.GetComponent<RangeObj>();
         rangeComponent.m_Multiple = multiple;
         rangeComponent.SetTime(attack_Delay, duration_Time);
@@ -47,8 +47,13 @@ public class Effect : MonoBehaviour
         Status casterStatus = caster.GetComponent<Status>();
         Status targetStatus = target.GetComponent<Status>();
 
-        if(targetStatus)
-            targetStatus.SetStatus("HP", (casterStatus.GetStatus("Physical_ATK") * multiple) - targetStatus.GetStatus("Defence"), "-");
+        if (targetStatus)
+        {
+            float Damage = (casterStatus.GetStatus("Physical_ATK") * multiple) - targetStatus.GetStatus("Defence");
+            if (Damage < 0)
+                Damage = 1;
+            targetStatus.SetStatus("HP", Damage, "-");
+        }
     }
 
     public void MagicAttack(ref Status caster, GameObject target, float multiple = 1)  // 스킬 사용자, 타겟 오브젝트, 공격 배수
@@ -57,6 +62,11 @@ public class Effect : MonoBehaviour
         Status targetStatus = target.GetComponent<Status>();
 
         if (targetStatus)
-            targetStatus.SetStatus("HP", casterStatus.GetStatus("Magic_ATK") * multiple - targetStatus.GetStatus("Defence"), "-");
+        {
+            float Damage = (casterStatus.GetStatus("Magic_ATK") * multiple) - targetStatus.GetStatus("Defence");
+            if (Damage < 0)
+                Damage = 1;
+            targetStatus.SetStatus("HP", Damage, "-");
+        }
     }    
 }

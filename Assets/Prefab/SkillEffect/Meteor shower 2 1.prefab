@@ -9681,11 +9681,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Radius: 0
+  m_Caster: {fileID: 0}
+  m_Multiple: 1
   m_Attack_Delay: 0
   m_Duration_Time: 0
   GetInObj: []
-  m_Attack_Time_Check: 0
-  m_Duration_Time_Check: 0
 --- !u!136 &8891513438072285708
 CapsuleCollider:
   m_ObjectHideFlags: 0

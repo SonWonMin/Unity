@@ -66,7 +66,7 @@ public class Skill : Effect
                 GameObject CopyObj = ProjectileManager.Getinstance().GetPrefab(2);
                 RangeObj ProjectileObj = CopyObj.GetComponent<RangeObj>();
                 ProjectileObj.SetCaster(ref m_Caster);
-                RangeAttackEffect(target.transform, CopyObj, 0.5f, 3.5f, 1.1f * level);
+                RangeAttackEffect(target.transform.position, CopyObj, 0.5f, 3.5f, 1.1f * level);
                 status.SetStatus("MP", 50, "-");
             }
         }
@@ -86,7 +86,7 @@ public class Skill : Effect
                 GameObject CopyObj = ProjectileManager.Getinstance().GetPrefab(2);
                 RangeObj ProjectileObj = CopyObj.GetComponent<RangeObj>();
                 ProjectileObj.SetCaster(ref m_Caster);
-                RangeAttackEffect(skill_position, CopyObj, 0.5f, 3.5f, 1.1f * level);
+                RangeAttackEffect(skill_position.position, CopyObj, 0.5f, 3.5f, 1.1f * level);
                 status.SetStatus("MP", 50, "-");
                 return true;
             }
@@ -108,7 +108,7 @@ public class Skill : Effect
                 GameObject CopyObj = ProjectileManager.Getinstance().GetPrefab(3);
                 RangeObj ProjectileObj = CopyObj.GetComponent<RangeObj>();
                 ProjectileObj.SetCaster(ref m_Caster);
-                RangeAttackEffect(status.transform, CopyObj, 2.0f, 2.0f, 5.0f);
+                RangeAttackEffect(new Vector3(status.transform.position.x, status.transform.position.y - 1, status.transform.position.z), CopyObj, 2.0f, 2.0f, 5.0f);
                 status.SetStatus("MP", 50, "-");
                 return true;
             }

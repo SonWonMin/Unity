@@ -149,7 +149,7 @@ public class UIManager : MonoBehaviour
         if (GameManager.Getinstance().m_Player.activeSelf == false && m_PlayerStatus.GetStatus("Cur_HP") > 0)
         {
             GameManager.Getinstance().m_Player.SetActive(true);
-            GameManager.Getinstance().m_Player.transform.position = Vector3.zero;
+            GameManager.Getinstance().m_Player.transform.position = new Vector3(0,3,0);
         }
     }
 

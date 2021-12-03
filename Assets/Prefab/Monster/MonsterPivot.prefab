@@ -168,12 +168,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ItemList:
-  - {fileID: 939753393936740814, guid: 9edf9363ddc190b4896bfd0d4e76a886, type: 3}
-  - {fileID: 752377734915551597, guid: 54a5a0e82d4f2fd42b6ffdd50fc377e0, type: 3}
-  - {fileID: 5135476547305928255, guid: 210fae20a8c925b4896cac5a2d243b72, type: 3}
-  - {fileID: 6237087949762155828, guid: 906210b0b35b617498624fad1bfb764d, type: 3}
-  - {fileID: 5942917582297961167, guid: b96e95da495d3df49a4b22970e9c8a4a, type: 3}
-  - {fileID: 2465131875111477194, guid: a050ca25e79c25748b6ab1eb54d56e38, type: 3}
+  - {fileID: 3663297710598578638, guid: 35af5d34b24975a47b02e78c0ef95ed6, type: 3}
+  - {fileID: 5462509296541467586, guid: 1f5f0c83cf8addc468f7dc007e69e4cf, type: 3}
+  - {fileID: 3222256390054186123, guid: 0a26d40fd53b88b4182eea60d44e5ed9, type: 3}
+  - {fileID: 355495944985737081, guid: 47657a981d7756048802858222e7d522, type: 3}
 --- !u!1001 &4627032421223875883
 PrefabInstance:
   m_ObjectHideFlags: 0
