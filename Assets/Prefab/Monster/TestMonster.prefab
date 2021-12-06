@@ -21026,7 +21026,7 @@ Rigidbody:
   m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 80
+  m_Constraints: 112
   m_CollisionDetection: 0
 --- !u!136 &4368476128237705707
 CapsuleCollider:
@@ -21066,6 +21066,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cc9983b3d4305cd488ba132c65fec3d6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Name: "\uC2A4\uCF08\uB808\uD1A4 \uB9C8\uBC95\uC0AC"
   LV: 0
   m_HP: 200
   m_MP: 200
@@ -21095,6 +21096,7 @@ MonoBehaviour:
   m_MonsterStatus: {fileID: 4368476128237705708}
   m_MonsterSkill: {fileID: 4368476128237705711}
   m_MonsterDropItem: {fileID: 7406175869647945743}
+  m_MonsterAnimator: {fileID: 0}
 --- !u!114 &-7125929850111076906
 MonoBehaviour:
   m_ObjectHideFlags: 0

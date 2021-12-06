@@ -43,19 +43,25 @@ public class Projectile : Skill
 
         if (m_Caster && other.tag != "Item")
         {
-            if (m_Caster.gameObject.CompareTag("Player") && other.tag != "Player" && this.gameObject.tag != other.tag)
+            if (other.CompareTag("Wall"))  // 벽에 충돌 시
+            {
+                Destroy(this.gameObject);
+            }
+            else if (m_Caster.gameObject.CompareTag("Player") && other.tag != "Player" && this.gameObject.tag != other.tag)  // 사용자가 플레이어일때
             {
                 PhysicalAttack(ref m_Caster, other.gameObject);
                 SetAttackList(other);
                 Destroy(this.gameObject);
             }
-            else if (m_Caster.gameObject.CompareTag("Monster") && other.tag != "Monster" && this.gameObject.tag != other.tag)
+            else if (m_Caster.gameObject.CompareTag("Monster") && other.tag != "Monster" && this.gameObject.tag != other.tag)  // 사용자가 몬스터일때
             {
                 PhysicalAttack(ref m_Caster, other.gameObject);
                 Destroy(this.gameObject);
             }
 
-            if (m_Caster.gameObject.tag != other.tag && this.gameObject.tag != other.tag)
+
+
+            if (m_Caster.gameObject.tag != other.tag && this.gameObject.tag != other.tag)  // 충돌 시 충돌 파티클 생성
             {
                 if (hit)
                 {

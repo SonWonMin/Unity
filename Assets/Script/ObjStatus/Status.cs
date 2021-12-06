@@ -33,7 +33,8 @@ public class Status : MonoBehaviour
         public int Max_HP;
         public int Max_MP;
     }
-
+    [SerializeField]
+    string Name;
     [SerializeField]
     float LV;
     [SerializeField]  // 변동 능력치 (실 게임에 적용)
@@ -479,6 +480,11 @@ public class Status : MonoBehaviour
                 m_MP_Recovery_sec -= target.m_MP_Recovery_sec;
                 break;
         }
+    }
+
+    public string GetName()
+    {
+        return Name;
     }
 
     public void ObjDie()  // 사망 처리

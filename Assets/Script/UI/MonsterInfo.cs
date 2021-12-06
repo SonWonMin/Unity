@@ -1,9 +1,11 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
 
 public class MonsterInfo : MonoBehaviour
 {
+    public TextMeshProUGUI m_Monster_Name;
     public GameObject m_Player_Obj;
     public GameObject m_UI_Obj;
     public RectTransform m_RectBackground;  // UI바의 배경
@@ -21,7 +23,7 @@ public class MonsterInfo : MonoBehaviour
         PlayerCharacter Player = m_Player_Obj.GetComponent<PlayerCharacter>();
         m_UI_Obj = Player.GetAttackMonster();
 
-        if (m_UI_Obj.GetComponent<Status>() && m_RectBackground && m_RectBar)
+        if (m_UI_Obj.GetComponent<Status>() && m_RectBackground && m_RectBar && m_Monster_Name)
         {
             if (isHP)
                 SetHP_UI();
@@ -29,6 +31,9 @@ public class MonsterInfo : MonoBehaviour
                 SetMP_UI();
             else if (isExp)
                 SetEXP_UI();
+
+            m_Monster_Name.text = m_UI_Obj.GetComponent<Status>().GetName();
+
         }
     }
 
