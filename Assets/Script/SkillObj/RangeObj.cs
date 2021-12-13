@@ -111,6 +111,11 @@ public class RangeObj : Skill
         {
             if (m_Caster.gameObject.CompareTag("Player") && other.tag != "Player")
             {
+                Monster monster = other.GetComponent<Monster>();
+                if(monster)
+                {
+                    monster.StartHitState();
+                }
                 GetInObj.Add(other.gameObject);
                 SetAttackList(other);
             }

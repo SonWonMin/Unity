@@ -15,9 +15,10 @@ public class Monster : MonoBehaviour
     [SerializeField]
     Animator m_MonsterAnimator;
 
-    enum MonsterState { IDLE, MOVE, ATTACK };  // 대기상태, 추적상태, 공격상태.
+    public enum MonsterState { IDLE, MOVE, ATTACK, HIT };  // 대기상태, 추적상태, 공격상태.
+    [SerializeField]
     MonsterState curState;
-
+    [SerializeField]
     Collider[] m_TargetFind;
 
     void Awake()
@@ -31,7 +32,7 @@ public class Monster : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(m_MonsterAnimator)
+        if (m_MonsterAnimator)
             StateUpdate();
     }
 
@@ -64,6 +65,9 @@ public class Monster : MonoBehaviour
                 AnimationSetting("ATTACK");
                 m_MonsterStatus.SetStatus("Move_Speed", 0);
                 break;
+            case MonsterState.HIT:
+                AnimationSetting("HIT");
+                break;
         }
     }
     public void AnimationSetting(string state) // 애니메이션 상태를 세팅한다
@@ -74,18 +78,32 @@ public class Monster : MonoBehaviour
                 m_MonsterAnimator.SetBool("Idle", true);
                 m_MonsterAnimator.SetBool("Move", false);
                 m_MonsterAnimator.SetBool("Attack", false);
+                m_MonsterAnimator.SetBool("Hit", false);
                 break;
             case "MOVE":
                 m_MonsterAnimator.SetBool("Idle", false);
                 m_MonsterAnimator.SetBool("Move", true);
                 m_MonsterAnimator.SetBool("Attack", false);
+                m_MonsterAnimator.SetBool("Hit", false);
                 break;
             case "ATTACK":
                 m_MonsterAnimator.SetBool("Idle", false);
                 m_MonsterAnimator.SetBool("Move", false);
                 m_MonsterAnimator.SetBool("Attack", true);
+                m_MonsterAnimator.SetBool("Hit", false);
+                break;
+            case "HIT":
+                m_MonsterAnimator.SetBool("Idle", false);
+                m_MonsterAnimator.SetBool("Move", false);
+                m_MonsterAnimator.SetBool("Attack", false);
+                m_MonsterAnimator.SetBool("Hit", true);
                 break;
         }
+    }
+
+    public void SetCurState(MonsterState state)
+    {
+        curState = state;
     }
 
     void TargetChase()
@@ -105,7 +123,7 @@ public class Monster : MonoBehaviour
                 }
             }
         }
-        else
+        else if(curState != MonsterState.HIT)
         {
             curState = MonsterState.IDLE;
         }
@@ -149,6 +167,11 @@ public class Monster : MonoBehaviour
         }
     }
 
+    public void StartHitState()
+    {
+        StartCoroutine(HitState());
+    }
+
     public IEnumerator AttackState(Collider target, float waitTime)
     {
         if(m_MonsterSkillSetting.GetMagicLevel(0) > 0)
@@ -170,6 +193,26 @@ public class Monster : MonoBehaviour
         m_MonsterStatus.SetStatus("Move_Speed", m_MonsterStatus.GetOriginalStatus("Move_Speed"));
         curState = MonsterState.IDLE;
     }
+
+    public IEnumerator HitState()
+    {
+        curState = MonsterState.HIT;
+        yield return new WaitForSeconds(0.1f);
+        curState = MonsterState.IDLE;
+    }
+
+    //private void OnTriggerEnter(Collider other)
+    //{
+    //    if (other.CompareTag("Projectile"))
+    //    {
+    //        Projectile projectile = other.GetComponent<Projectile>();
+            
+    //        if(other && projectile.GetCaster().CompareTag("Player"))
+    //        {
+    //            StartCoroutine(HitState());
+    //        }
+    //    }
+    //}
 
     private void OnDrawGizmos()
     {

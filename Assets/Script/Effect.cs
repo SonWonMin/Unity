@@ -68,5 +68,20 @@ public class Effect : MonoBehaviour
                 Damage = 1;
             targetStatus.SetStatus("HP", Damage, "-");
         }
-    }    
+    }
+
+    public void Target_HitMotion(GameObject target)
+    {
+        if (target.CompareTag("Monster"))
+        {
+            Monster monster = target.GetComponent<Monster>();
+            monster.SetCurState(Monster.MonsterState.HIT);
+        }
+        else if(target.CompareTag("Player"))
+        {
+            PlayerCharacter player = target.GetComponent<PlayerCharacter>();
+            player.SetcurState(PlayerCharacter.CharacterState.HIT);
+        }
+
+    }
 }

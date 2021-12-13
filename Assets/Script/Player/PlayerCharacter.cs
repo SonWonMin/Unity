@@ -23,7 +23,7 @@ public class PlayerCharacter : MonoBehaviour
 
     float m_Time = 0;
 
-    enum CharacterState{ IDLE, WALK, RUN, ATTACK, SKILL_1, SKILL_2, SKILL_3 };
+    public enum CharacterState{ IDLE, WALK, RUN, ATTACK, SKILL_1, SKILL_2, SKILL_3, HIT };
     CharacterState m_curState;
 
     private void Start()
@@ -55,6 +55,9 @@ public class PlayerCharacter : MonoBehaviour
             case CharacterState.ATTACK:
                 AnimationSetting("ATTACK");
                 break;
+            case CharacterState.HIT:
+                AnimationSetting("Hit");
+                break;
             case CharacterState.SKILL_1:
                 AnimationSetting("SKILL1");
                 break;
@@ -78,18 +81,28 @@ public class PlayerCharacter : MonoBehaviour
                 PlayerAnimation.SetBool("Walk", false);
                 PlayerAnimation.SetBool("Run", false);
                 PlayerAnimation.SetBool("Attack", false);
+                PlayerAnimation.SetBool("Hit", false);
                 break;
             case "WALK":
                 PlayerAnimation.SetBool("Idle", false);
                 PlayerAnimation.SetBool("Walk", true);
                 PlayerAnimation.SetBool("Run", false);
                 PlayerAnimation.SetBool("Attack", false);
+                PlayerAnimation.SetBool("Hit", false);
                 break;
             case "RUN":
                 PlayerAnimation.SetBool("Idle", false);
                 PlayerAnimation.SetBool("Walk", false);
                 PlayerAnimation.SetBool("Run", true);
                 PlayerAnimation.SetBool("Attack", false);
+                PlayerAnimation.SetBool("Hit", false);
+                break;
+            case "Hit":
+                PlayerAnimation.SetBool("Idle", false);
+                PlayerAnimation.SetBool("Walk", false);
+                PlayerAnimation.SetBool("Run", false);
+                PlayerAnimation.SetBool("Attack", false);
+                PlayerAnimation.SetBool("Hit", true);
                 break;
             case "ATTACK":
                 StartCoroutine(Attack_Animation());
@@ -104,6 +117,11 @@ public class PlayerCharacter : MonoBehaviour
                 StartCoroutine(Skill_3_Animation());
                 break;
         }
+    }
+
+    public void SetcurState(CharacterState state)
+    {
+        m_curState = state;
     }
 
     public float GetPlayerStatus(string Status) // 현재 플레이어의 상태를 지정한다. 이거 아닌데
@@ -135,6 +153,9 @@ public class PlayerCharacter : MonoBehaviour
                 break;
             case "SKILL3":
                 m_curState = CharacterState.SKILL_3;
+                break;
+            case "Hit":
+                m_curState = CharacterState.HIT;
                 break;
         }
     }
